@@ -123,10 +123,14 @@ public class RefreshableListView extends FrameLayout{
 	 */
 	public void finishRefresh(){
 		progress.setIndeterminate(false);
+		progress.postInvalidate();
 		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) progress.getLayoutParams();
 		params.weight = 2;
 		progress.setLayoutParams(params);
 		list.refreshing = false;
+	}
+	public void finishLoadingMore(){
+		list.loadingMore = false;
 	}
 	
 	class ListControl extends ListView implements OnScrollListener{
@@ -162,6 +166,7 @@ public class RefreshableListView extends FrameLayout{
 								LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) progress.getLayoutParams();
 								params.weight = 0;
 								progress.setIndeterminate(true);
+								progress.postInvalidate();
 								progress.setLayoutParams(params);
 							}
 						break;
@@ -172,27 +177,33 @@ public class RefreshableListView extends FrameLayout{
 							params.weight = 2;
 							progress.setLayoutParams(params);
 						}
-						break;
 				}
 			}
 			return super.dispatchTouchEvent(event);
 		}
 
-		private boolean isMoreFromPast = false;
 		private boolean HittingTop = false;
 		private double startY = 100000.0;
 
+		private boolean loadingMore = false;
 		@Override
 		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 			
 				if(firstVisibleItem == 0)
 					HittingTop = true;
-				else
+				else{
 					HittingTop = false;
-				if(this.getAdapter()!=null)
-					if(!this.getAdapter().isEmpty())
-						if(totalItemCount - firstVisibleItem <= itemsFromBottom)
-							if(!isMoreFromPast)
+					startY = 100000.0;
+					if(!refreshing){
+						LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) progress.getLayoutParams();
+						params.weight = 2;
+						progress.setLayoutParams(params);
+					}
+				}
+				if(!loadingMore)
+					if(this.getAdapter()!=null)
+						if(!this.getAdapter().isEmpty())
+							if(totalItemCount - (firstVisibleItem+visibleItemCount) <= itemsFromBottom)
 								if(ListrefreshLister!=null)
 									ListLoadMoreListener.LoadMore(RefreshableListView.this);
 		}
