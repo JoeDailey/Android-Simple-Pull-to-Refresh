@@ -1,4 +1,15 @@
 Android-Simple-Pull-to-Refresh
 ==============================
 
-Using the style created by Chris Banes, this is the easiest-to-implement Pull-to-Refresh possible.
+Using the style created by [Chris Banes](https://github.com/chrisbanes/ActionBar-PullToRefresh) and recently implimented in the newest Gmail app, this is the easiest-to-implement Pull-to-Refresh possible.
+
+insturctions: 
+1. add RefreshableListView.java to your own files.
+2. add RefreshableListView custom view to your layout file(possibly replacing a regular ListView)
+3. in the activity's onCreate method set the onListRefreshListener and the onListLoadMoreListener.
+4. treat the RefreshableListView as a regular list and set your adapter.
+5. (Optionally) you can ajust the threshhold for drag length and the number of items from the bottom to call to load more items;
+5. make a call to "finishRefresh()" to notify the list that the refresh is finished.
+
+
+Note: Using the style and drawables provided will yield easiest results.
