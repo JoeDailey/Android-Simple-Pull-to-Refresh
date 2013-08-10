@@ -9,22 +9,14 @@ package com.refreshable.list;
  * No License restriction held by me
  * Look to influences for further licensing 
  */
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.Timer;
-
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
-import com.example.refreshable.list.R;
+import com.refreshable.list.R;
 import com.refreshable.list.RefreshableListView.onListLoadMoreListener;
 import com.refreshable.list.RefreshableListView.onListRefreshListener;
 
