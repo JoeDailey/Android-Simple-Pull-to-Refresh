@@ -5,34 +5,57 @@ Using the style created by [Chris Banes](https://github.com/chrisbanes/ActionBar
 
 instructions for use:
 
-  1. add RefreshableListView.java to your own files.
+  1: Add RefreshableListView.java to your own files source files.
 
-  2. add RefreshableListView custom view to your layout file(possibly replacing a regular ListView).
+  2: Add RefreshableListView custom view to your layout file(possibly replacing a regular ListView).
 
-    <com.refreshable.list.RefreshableListView
-        android:id="@+id/RefreshList"
-        style="@style/Widget.PullToRefresh.ProgressBar.Horizontal.Center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </com.refreshable.list.RefreshableListView>
+```xml
+<path.to.your.RefreshableListView
+  android:id="@+id/RefreshList"
+  style="@style/Widget.PullToRefresh.ProgressBar.Horizontal.Center"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" >
+</path.to.your.RefreshableListView>
+```
 
+  3: In the activity's onCreate method set the onListRefreshListener and the onListLoadMoreListener.
 
-  3. in the activity's onCreate method set the onListRefreshListener and the onListLoadMoreListener.
+```java
+List.setOnListRefreshListener(this);
+List.setOnListLoadMoreListener(this);
+```
+  4: Treat the RefreshableListView as a regular list and set your adapter.
 
-  4. treat the RefreshableListView as a regular list and set your adapter.
+```java
+ListAdapter adapter = new someAdapter<someType>(...);
+List.setAdapter(adapter);
+```
+  5: (Optionally) You can adjust the threshold for drag length and the number of items from the bottom before a call to load more items;
 
-  5. (Optionally) you can adjust the threshold for drag length and the number of items from the bottom to call to load more items;
+```java
+List.setDragLength(500);
+List.setDistanceFromBottom(10);
+```
+  6: Make a call to `finishRefresh()` or `finishLoadMore()` to notify the list that the refresh or load is finished.
 
-  6. make a call to "finishRefresh()" to notify the list that the refresh is finished.
+```java
+List.finishRefresh();
+List.finishLoadingMore();
+````
+  7: To interact with this list like the the stock ListView, simply access it. 
 
+```java
+List.getListView().setAdapter(adapter); //This also sets the adapter
+```
 
-Note: Using the style and drawables provided will yield easiest results.
+To change the color of the loading bar, manipulate the PNG's
+***Warning:* changing the width might lead to some issue**
 
-Assumably works on all versions of android.
+I can safely assume that this works on all versions of android (unlike the original wutwut).
 
 Created by Joe Dailey
 
-This content is released under the (Link Goes Here) MIT License.
+This content is released under the [MIT License](http://opensource.org/licenses/MIT).
 
 Official Sample:
 
@@ -40,4 +63,5 @@ Official Sample:
 
 
 Please feel free to submit pull requests!
-Please also feel free to put a link to your project that uses this project at the bottom of this README!
+
+**Please also feel free to put a link to your project that uses this project at the bottom of this README!**
