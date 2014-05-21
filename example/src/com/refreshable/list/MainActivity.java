@@ -6,8 +6,8 @@ package com.refreshable.list;
  *
  * For Android api 1+
  *
- * No License restriction held by me
- * Look to influences for further licensing
+ * All code here writen by Joseph Dailey and not a derivative of some other project
+ * Under MIT licence 
  */
 import android.app.Activity;
 import android.os.AsyncTask;
