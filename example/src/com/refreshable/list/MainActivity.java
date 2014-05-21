@@ -52,7 +52,8 @@ public class MainActivity extends Activity implements onListRefreshListener, onL
 		//or...(also allows for access to all ListView methods)
 		//List.getListView().setAdapter(adapter);
 		//List.getListView().setBackground(background);
-		//or whatever
+		
+		//or set specific attributes
 		//List.setDragLength(500);
 		//List.setDistanceFromBottom(10);
 	}
@@ -62,15 +63,13 @@ public class MainActivity extends Activity implements onListRefreshListener, onL
 		Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show();
 		fakeDownload(list);
 		//^^^download whatever
-
 	}
 
 	@Override
 	public void LoadMore(RefreshableListView list) {
 		Toast.makeText(this, "Loading More...", Toast.LENGTH_SHORT).show();
 		fakeDownload(list);
-    //LoadSomething
-//		list.finishLoadingMore();//-------------------------------------------------------------------------kindof-Important
+		//^^^download whatever
 	}
 	private void fakeDownload(RefreshableListView list){
 
@@ -83,7 +82,9 @@ public class MainActivity extends Activity implements onListRefreshListener, onL
 			}
 			@Override
 			protected void onPostExecute(RefreshableListView list) {
+				//I just finish both here to not have to write two example mocks
 				list.finishRefresh();//-------------------------------------------------------------------------Important
+				list.finishLoadingMore();//---------------------------------------------------------------------Important
 				super.onPostExecute(list);
 			}
 		}.execute(list);
